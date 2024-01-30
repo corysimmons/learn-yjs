@@ -20,11 +20,14 @@ export default function Page() {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    providerRef.current = new WebrtcProvider('your-room-namesdoasdjkasodkasdokasodkasodkkasdk22323', ydocRef.current);
+    providerRef.current = new WebrtcProvider('your-room-namesdoasdjkasodkasdokasodkasodkkasdk22323', ydocRef.current, {
+      signaling: ['wss://fly-y-webrtc-server.fly.dev'],
+    });
 
     const yArray = ydocRef.current.getArray<Message>('shared-messages');
 
     yArray.observe(() => {
+      console.log(ydocRef.current.toJSON())
       setMessages(yArray.toArray());
     });
 
